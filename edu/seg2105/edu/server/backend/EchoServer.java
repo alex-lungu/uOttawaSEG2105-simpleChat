@@ -19,6 +19,8 @@ public class EchoServer extends AbstractServer
 {
   //Class variables *************************************************
   
+	String loginKey = "loginID";
+	
   /**
    * The default port to listen on.
    */
@@ -49,7 +51,16 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
-    this.sendToAllClients(msg);
+    
+    String msgStr = (String)msg;
+    if(msgStr.startsWith("#login")) {
+    	
+    	String loginID = "";
+    	client.setInfo(loginKey,loginID );
+    }
+    
+    else 
+    	this.sendToAllClients(msg);
   }
     
   /**
